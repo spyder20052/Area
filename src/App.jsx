@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import Login from './pages/Login.jsx';
+import Register from './pages/Register.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import Areas from './pages/Areas.jsx';
+import Services from './pages/Services.jsx';
+import Settings from './pages/Settings.jsx';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate, useLocation } from 'react-router-dom';
-import { Camera, Plus, Trash2, Settings, LogOut, Menu, X, Zap, PlayCircle, PauseCircle, Bell, Activity, Users, Search, Filter, ChevronRight, Globe, Mail, Github, Twitter, Clock, Database, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import { Camera, Plus, Trash2, Settings as SettingsIcon, LogOut, Menu, X, Zap, PlayCircle, PauseCircle, Bell, Activity, Users, Search, Filter, ChevronRight, Globe, Mail, Github, Twitter, Clock, Database, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 
 // Mock API
 const mockAPI = {
@@ -369,7 +375,7 @@ const Sidebar = ({ user, setUser }) => {
             isActive('/settings') ? 'bg-purple-100 text-purple-600' : 'text-gray-600 hover:bg-gray-100'
           }`}
         >
-          <Settings className="w-5 h-5" />
+          <SettingsIcon className="w-5 h-5" />
           <span className="font-medium">Paramètres</span>
         </Link>
       </nav>
@@ -467,7 +473,7 @@ const MobileMenu = ({ user, setUser, setShowMobileMenu }) => {
             isActive('/settings') ? 'bg-purple-100 text-purple-600' : 'text-gray-600 hover:bg-gray-100'
           }`}
         >
-          <Settings className="w-5 h-5" />
+          <SettingsIcon className="w-5 h-5" />
           <span className="font-medium">Paramètres</span>
         </button>
       </nav>
@@ -1082,10 +1088,10 @@ const MainLayout = ({ user, setUser, services, setServices, areas, setAreas, sel
         <Sidebar user={user} setUser={setUser} />
         <div className="flex-1 min-h-screen">
           <Routes>
-            <Route path="/dashboard" element={<DashboardPage user={user} services={services} areas={areas} />} />
-            <Route path="/areas" element={<AreasPage areas={areas} setAreas={setAreas} services={services} showCreateArea={showCreateArea} setShowCreateArea={setShowCreateArea} newArea={newArea} setNewArea={setNewArea} />} />
-            <Route path="/services" element={<ServicesPage services={services} setServices={setServices} selectedService={selectedService} setSelectedService={setSelectedService} />} />
-            <Route path="/settings" element={<SettingsPage user={user} />} />
+            <Route path="/dashboard" element={<Dashboard user={user} services={services} areas={areas} />} />
+            <Route path="/areas" element={<Areas areas={areas} setAreas={setAreas} services={services} showCreateArea={showCreateArea} setShowCreateArea={setShowCreateArea} newArea={newArea} setNewArea={setNewArea} />} />
+            <Route path="/services" element={<Services services={services} setServices={setServices} selectedService={selectedService} setSelectedService={setSelectedService} />} />
+            <Route path="/settings" element={<Settings user={user} />} />
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </div>
@@ -1129,8 +1135,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<LoginPage setUser={setUser} />} />
-        <Route path="/register" element={<RegisterPage setUser={setUser} />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path="/register" element={<Register setUser={setUser} />} />
         <Route
           path="/*"
           element={
