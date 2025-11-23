@@ -123,11 +123,8 @@ const mockAPI = {
   }
 };
 
-// Protected Route Component
-const ProtectedRoute = ({ user, children }) => {
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
+// Protected Route Component (disabled: always allow)
+const ProtectedRoute = ({ children }) => {
   return children;
 };
 
@@ -324,7 +321,7 @@ const Sidebar = ({ user, setUser }) => {
 
   const handleLogout = () => {
     setUser(null);
-    navigate('/login');
+    navigate('/dashboard');
   };
 
   const isActive = (path) => location.pathname === path;
@@ -429,7 +426,7 @@ const MobileMenu = ({ user, setUser, setShowMobileMenu }) => {
   const handleLogout = () => {
     setUser(null);
     setShowMobileMenu(false);
-    navigate('/login');
+    navigate('/dashboard');
   };
 
   const isActive = (path) => location.pathname === path;
@@ -1102,7 +1099,8 @@ const MainLayout = ({ user, setUser, services, setServices, areas, setAreas, sel
 
 // Main App Component
 const App = () => {
-  const [user, setUser] = useState(null);
+  const guestUser = { id: 1, email: 'john.doe@example.com', name: 'John Doe' };
+  const [user, setUser] = useState(guestUser);
   const [services, setServices] = useState([]);
   const [areas, setAreas] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
@@ -1158,7 +1156,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </Router>
   );
